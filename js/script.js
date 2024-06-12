@@ -21,6 +21,17 @@ row.classList.add("row");
 row.id = "row";
 maindiv.appendChild(row);
 
+// let weathercard = document.createElement("div");
+// weathercard.classList.add("card","position-sticky","container","col-6","top-50","right-50");
+// row.appendChild(weathercard);
+// let weathercardHeader = document.createElement("div");
+// weathercardHeader.classList.add("card-Header");
+// weathercard.appendChild(weathercardHeader);
+// let weathercardBody = document.createElement("div");
+// weathercardBody.classList.add("card-body");
+// weathercard.appendChild(weathercardBody);
+// weathercard.style.display = "none"
+
 let resturl = "https://restcountries.com/v3.1/all";
 
 async function fetchrest(){
@@ -56,10 +67,20 @@ fetchrest().then(res => {
         
         let weatherbtn = document.createElement("div");
         weatherbtn.classList.add("btn","btn-secondary");
+        weatherbtn.id = country.name.common;
         weatherbtn.innerText = "click for weather";
 
-
-
+        weatherbtn.addEventListener('click',() => {
+            console.log((country.latlng)[0]);
+            async function fetchweather() {
+                let weatherresponse = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${(country.latlng)[0]}&lon=${(country.latlng)[1]}&appid=be97b5a6031117c9213cc8fb2ae49124`)
+                let weatherjson = await weatherresponse.json();
+                return weatherjson;
+            }
+            fetchweather().then(res => {
+                console.log((res.weather)[0].description);
+            })
+        })
 
         cardtext.appendChild(weatherbtn);
         cardbody.appendChild(cardtext);

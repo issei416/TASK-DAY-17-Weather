@@ -97,7 +97,7 @@ fetchrest().then(res => {
             weathercardbody.appendChild(temp);
 
             let windspeed = document.createElement("p")
-            windspeed.innerText = `wind : ${res.wind.speed} km/h`;
+            windspeed.innerText = `wind : ${res.wind.speed} Km/h`;
             weathercardbody.appendChild(windspeed);
 
             let closebtn = document.createElement("div");
